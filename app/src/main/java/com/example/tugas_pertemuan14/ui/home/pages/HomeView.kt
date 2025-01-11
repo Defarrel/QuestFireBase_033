@@ -82,7 +82,7 @@ fun HomeScreen(
             retryAction = {viewModel.getMhs()}, modifier = Modifier.padding(innerPadding),
             onDetailClick = onDetailClick,
             onDeleteClick = {
-                viewModel.getMhs()
+                viewModel.deleteMhs(it)
             }
         )
     }
@@ -161,8 +161,9 @@ fun MhsLayout(
             itemContent = { mhs->
                 MhsCard(
                     mahasiswa = mhs,
-                    modifier = Modifier.fillMaxWidth()
-                        .clickable{ onDetailClick(mhs) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { onDetailClick(mhs) },
                     onDeleteClick ={
                         onDeleteClick(mhs)
                     }
