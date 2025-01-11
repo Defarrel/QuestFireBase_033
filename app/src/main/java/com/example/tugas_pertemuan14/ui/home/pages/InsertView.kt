@@ -13,21 +13,105 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.key
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.tugas_pertemuan14.ui.PenyediaViewModel
 import com.example.tugas_pertemuan14.ui.home.viewmodel.FormErrorState
 import com.example.tugas_pertemuan14.ui.home.viewmodel.FormState
 import com.example.tugas_pertemuan14.ui.home.viewmodel.HomeUiState
 import com.example.tugas_pertemuan14.ui.home.viewmodel.InsertUiState
+import com.example.tugas_pertemuan14.ui.home.viewmodel.InsertViewModel
 import com.example.tugas_pertemuan14.ui.home.viewmodel.MahasiswaEvent
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
+@Composable
+fun InsertView(
+    onBack: () -> Unit,
+    onNavigate: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: InsertViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val uiState = viewModel.uiState //state utama untuk loading, success, error
+    val uiEvent = viewModel.uiEvent //state utama untuk form dan validasi
+    val snackbarHostState = remember { SnackbarHostState() } //state utama untuk snackbar
+    val coroutineScope = rememberCoroutineScope()
+
+    // Observasi peruabahan state untuk snackbar dan navigasi
+
+    LaunchedEffect (uiState){
+        when (uiState) {
+            is FormState.Success -> {
+                println("InsertMhsView: uiState is FormState.Success, navigate to Home"+uiState.message)
+                coroutineScope.launch {
+                    snackbarHostState.showSnackbar(uiState.message) //tampilkan snackbar
+                }
+                delay(700)
+                //navigasi langsung
+                onNavigate()
+                viewModel.resetSnackBarMessage() // Reset Snackbar state
+            }
+            is FormState.Error -> {
+                coroutineScope.launch {
+                    snackbarHostState.showSnackbar(uiState.message) //tampilkan snackbar
+                }
+            }else -> Unit
+        }
+    }
+    Scaffold(
+        modifier = modifier,
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+        topBar = {
+            TopAppBar(
+                title = { Text("Insert Mahasiswa") },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Text("Back")
+                    }
+                }
+            )
+        },
+    ) { padding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(16.dp)
+        ) {
+            InsertBodyMhs(
+                uiState = uiEvent,
+                homeUiState = uiState,
+                onValueChange = {updatedEvent ->
+                    viewModel.updateState(updatedEvent)
+                },
+                onClick = {
+                    if (viewModel.validateFields()) {
+                        viewModel.insertMhs()
+                        //onNavigate()
+                    }
+                }
+            )
+        }
+
+    }
+}
 
 @Composable
 fun InsertBodyMhs(
