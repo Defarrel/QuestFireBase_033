@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
@@ -42,6 +43,7 @@ import com.example.tugas_pertemuan14.ui.home.viewmodel.MahasiswaEvent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InsertView(
     onBack: () -> Unit,
@@ -98,8 +100,8 @@ fun InsertView(
             InsertBodyMhs(
                 uiState = uiEvent,
                 homeUiState = uiState,
-                onValueChange = {updatedEvent ->
-                    viewModel.updateState(updatedEvent)
+                onValueChange = {/*updatedEvent ->
+                    viewModel.updateState(updatedEvent)*/
                 },
                 onClick = {
                     if (viewModel.validateFields()) {
