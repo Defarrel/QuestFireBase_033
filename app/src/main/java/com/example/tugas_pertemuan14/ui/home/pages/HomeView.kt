@@ -179,6 +179,7 @@ fun MhsCard(
     modifier: Modifier = Modifier,
     onDeleteClick: (Mahasiswa) -> Unit = {}
 ){
+    var deleteConfirmationRequared by rememberSaveable { mutableStateOf(false) }
     Card (
         modifier = modifier,
         shape = MaterialTheme.shapes.small,
@@ -197,10 +198,19 @@ fun MhsCard(
                     style = MaterialTheme.typography.titleLarge
                 )
                 Spacer(Modifier.weight(1f))
-                IconButton(onClick = { onDeleteClick (mahasiswa)}) {
+                IconButton(onClick = { deleteConfirmationRequared = true }) {
                     Icon(
                         imageVector = Icons.Default.Delete,
                         contentDescription = null
+                    )
+                }
+                if(deleteConfirmationRequared){
+                    DeleteConfirmationDialog(
+                        onDeleteConfirm = {
+                            onDeleteClick(mahasiswa)
+                            deleteConfirmationRequared = false
+                        },
+                        onDeleteCancel = { deleteConfirmationRequared = false }
                     )
                 }
             }
