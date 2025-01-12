@@ -7,6 +7,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.tugas_pertemuan14.MahasiswaApp
 import com.example.tugas_pertemuan14.model.Mahasiswa
+import com.example.tugas_pertemuan14.ui.home.viewmodel.DetailViewModel
 import com.example.tugas_pertemuan14.ui.home.viewmodel.HomeViewModel
 import com.example.tugas_pertemuan14.ui.home.viewmodel.InsertViewModel
 
@@ -20,12 +21,12 @@ object PenyediaViewModel{
             InsertViewModel(
                 MahasiswaApp().container.repositoryMhs)
         }
-/*        initializer {
+        initializer {
             DetailViewModel(
                 createSavedStateHandle(),
-                MahasiswaApplication().container.kontakRepository)
+                MahasiswaApp().container.repositoryMhs)
         }
-        initializer {
+/*        initializer {
             UpdateViewModel(
                 createSavedStateHandle(),
                 MahasiswaApplication().container.kontakRepository)
