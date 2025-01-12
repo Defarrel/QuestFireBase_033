@@ -18,6 +18,10 @@ class InsertViewModel(
     var uiState: FormState by mutableStateOf(FormState.Idle)
         private set
 
+    fun updateState(mahasiswaEvent: MahasiswaEvent){
+        uiEvent = uiEvent.copy(insertUiEvent = mahasiswaEvent)
+    }
+
     //Validasi data input form
     fun validateFields(): Boolean{
         val event = uiEvent.insertUiEvent

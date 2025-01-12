@@ -100,8 +100,8 @@ fun InsertView(
             InsertBodyMhs(
                 uiState = uiEvent,
                 homeUiState = uiState,
-                onValueChange = { mahasiswaEvent ->
-                    viewModel.uiEvent = viewModel.uiEvent.copy(insertUiEvent = mahasiswaEvent)
+                onValueChange = { updateEvent ->
+                    viewModel.updateState(updateEvent)
                 },
                 onClick = {
                     if (viewModel.validateFields()) {
