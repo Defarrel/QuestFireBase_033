@@ -1,21 +1,106 @@
 package com.example.tugas_pertemuan14.ui.home.pages
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.tugas_pertemuan14.model.Mahasiswa
+import com.example.tugas_pertemuan14.ui.PenyediaViewModel
+import com.example.tugas_pertemuan14.ui.home.viewmodel.DetailUiState
+import com.example.tugas_pertemuan14.ui.home.viewmodel.DetailViewModel
+import com.example.tugas_pertemuan14.ui.home.viewmodel.toMhsModel
+import com.example.tugas_pertemuan14.ui.navigation.DestinasiDetail
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DetailView(
+    navigateToEdit: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: DetailViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    Scaffold(
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text("Detail Mahasiswa")
+                }
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = navigateToEdit,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(18.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = "Delete Mahasiswa"
+                )
+            }
+        }
+    ) { innerPadding ->
+        BodyDetailMhs(
+            detailUiState = viewModel.detailUiState,
+            modifier = Modifier.padding(innerPadding)
+        )
+    }
+}
+
+@Composable
+fun BodyDetailMhs(
+    detailUiState: DetailUiState,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        when (detailUiState) {
+            is DetailUiState.Loading -> {
+                CircularProgressIndicator(modifier = modifier)
+            }
+            is DetailUiState.Success -> {
+                ItemDetailMhs(
+                    mahasiswa = detailUiState.detailUiEvent.toMhsModel(),
+                    modifier = modifier
+                )
+            }
+            is DetailUiState.Error -> {
+                Text(
+                    text = detailUiState.errorMessage,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = modifier
+                )
+            }
+        }
+    }
+}
 
 @Composable
 fun ItemDetailMhs(
