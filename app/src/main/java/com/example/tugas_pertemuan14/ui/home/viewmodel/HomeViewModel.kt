@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 class HomeViewModel(
-    private val repositoryMhs: RepositoryMhs
+    private val mhs: RepositoryMhs
 ) : ViewModel(){
     var mhsUiState: HomeUiState by mutableStateOf(HomeUiState.Loading)
         private set
@@ -24,7 +24,7 @@ class HomeViewModel(
 
     fun getMhs(){
         viewModelScope.launch {
-            repositoryMhs.getAllMhs()
+            mhs.getAllMhs()
                 .onStart {
                     mhsUiState = HomeUiState.Loading
                 }
@@ -43,7 +43,7 @@ class HomeViewModel(
     fun deleteMhs(mahasiswa: Mahasiswa){
         viewModelScope.launch {
             try {
-                repositoryMhs.deleteMhs(mahasiswa)
+                mhs.deleteMhs(mahasiswa)
             }catch (e: Exception){
                 mhsUiState = HomeUiState.Error(e)
             }

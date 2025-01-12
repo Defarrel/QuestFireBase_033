@@ -11,10 +11,9 @@ import com.example.tugas_pertemuan14.repository.RepositoryMhs
 import kotlinx.coroutines.launch
 
 class InsertViewModel(
-    private val repositoryMhs: RepositoryMhs
+    private val mhs: RepositoryMhs
 ): ViewModel(){
     var uiEvent: InsertUiState by mutableStateOf(InsertUiState())
-        private set
 
     var uiState: FormState by mutableStateOf(FormState.Idle)
         private set
@@ -39,10 +38,10 @@ class InsertViewModel(
             viewModelScope.launch {
                 uiState = FormState.Loading
                 try {
-                    repositoryMhs.insertMhs(uiEvent.insertUiEvent.toMhsModel())
+                    mhs.insertMhs(uiEvent.insertUiEvent.toMhsModel())
                     uiState = FormState.Success("Berhasil menambahkan data mahasiswa")
                 }catch (e: Exception){
-                    uiState = FormState.Error("Gagal menambahkan data mahasiswa: ${e.message}")
+                    uiState = FormState.Error("Gagal menambahkan data")
                 }
             }
         }else{

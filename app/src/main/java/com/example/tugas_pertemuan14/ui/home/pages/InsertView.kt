@@ -100,8 +100,8 @@ fun InsertView(
             InsertBodyMhs(
                 uiState = uiEvent,
                 homeUiState = uiState,
-                onValueChange = {/*updatedEvent ->
-                    viewModel.updateState(updatedEvent)*/
+                onValueChange = { mahasiswaEvent ->
+                    viewModel.uiEvent = viewModel.uiEvent.copy(insertUiEvent = mahasiswaEvent)
                 },
                 onClick = {
                     if (viewModel.validateFields()) {
@@ -172,10 +172,10 @@ fun FormMahasiswa(
             modifier = Modifier.fillMaxWidth(),
             value = mahasiswaEvent.nama,
             onValueChange = { onValueChange(mahasiswaEvent.copy(nama = it)) },
-            label = { Text(text = "Nama") },
+            label = { Text("Nama") },
             singleLine = true,
             isError = errorState.nama != null,
-            placeholder = { Text(text = "Masukkan Nama") }
+            placeholder = { Text("Masukkan Nama") }
         )
         Text(
             text = errorState.nama ?: "",
@@ -185,10 +185,10 @@ fun FormMahasiswa(
             modifier = Modifier.fillMaxWidth(),
             value = mahasiswaEvent.nim,
             onValueChange = { onValueChange(mahasiswaEvent.copy(nim = it)) },
-            label = { Text(text = "NIM") },
+            label = { Text("NIM") },
             singleLine = true,
             isError = errorState.nim != null,
-            placeholder = { Text(text = "Masukkan NIM") },
+            placeholder = { Text("Masukkan NIM") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
         Text(
@@ -224,10 +224,10 @@ fun FormMahasiswa(
             modifier = Modifier.fillMaxWidth(),
             value = mahasiswaEvent.alamat,
             onValueChange = { onValueChange(mahasiswaEvent.copy(alamat = it)) },
-            label = { Text(text = "Alamat") },
+            label = { Text("Alamat") },
             singleLine = true,
             isError = errorState.alamat != null,
-            placeholder = { Text(text = "Masukkan Alamat") }
+            placeholder = { Text("Masukkan Alamat") }
         )
         Text(
             text = errorState.alamat ?: "",
@@ -263,10 +263,10 @@ fun FormMahasiswa(
             modifier = Modifier.fillMaxWidth(),
             value = mahasiswaEvent.angkatan,
             onValueChange = { onValueChange(mahasiswaEvent.copy(angkatan = it)) },
-            label = { Text(text = "Angkatan") },
+            label = { Text("Angkatan") },
             singleLine = true,
             isError = errorState.angkatan != null,
-            placeholder = { Text(text = "Masukkan Angkatan") },
+            placeholder = { Text("Masukkan Angkatan") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
         Text(
