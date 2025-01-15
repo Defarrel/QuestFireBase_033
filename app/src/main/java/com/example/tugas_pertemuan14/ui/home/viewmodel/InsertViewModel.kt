@@ -99,7 +99,10 @@ data class MahasiswaEvent(
     val jenisKelamin: String = "",
     val alamat: String = "",
     val kelas: String = "",
-    val angkatan: String = ""
+    val angkatan: String = "",
+    val skripsi: String = "",
+    val dosenbimbing1: String = "",
+    val dosenbimbing2: String = ""
 )
 
 //Menyimpan input form ke dalam entity
@@ -109,7 +112,10 @@ fun MahasiswaEvent.toMhsModel(): Mahasiswa = Mahasiswa(
     jenisKelamin = jenisKelamin,
     alamat = alamat,
     kelas = kelas,
-    angkatan = angkatan
+    angkatan = angkatan,
+    skripsi = skripsi,
+    dosenbimbing1 = dosenbimbing1,
+    dosenbimbing2 = dosenbimbing2
 )
 
 
