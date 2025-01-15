@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -55,6 +57,7 @@ fun InsertView(
     val uiEvent = viewModel.uiEvent //state utama untuk form dan validasi
     val snackbarHostState = remember { SnackbarHostState() } //state utama untuk snackbar
     val coroutineScope = rememberCoroutineScope()
+    val scrollState = rememberScrollState()
 
     // Observasi peruabahan state untuk snackbar dan navigasi
 
@@ -96,6 +99,7 @@ fun InsertView(
                 .fillMaxSize()
                 .padding(padding)
                 .padding(16.dp)
+                .verticalScroll(state = scrollState)
         ) {
             InsertBodyMhs(
                 uiState = uiEvent,
@@ -282,19 +286,6 @@ fun FormMahasiswa(
             singleLine = true,
             isError = errorState.skripsi != null,
             placeholder = { Text("Masukkan Angkatan") },
-        )
-        Text(
-            text = errorState.skripsi ?: "",
-            color = Color.Red
-        )
-        OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = mahasiswaEvent.skripsi,
-            onValueChange = { onValueChange(mahasiswaEvent.copy(skripsi = it)) },
-            label = { Text("Judul Skripsi") },
-            singleLine = true,
-            isError = errorState.skripsi != null,
-            placeholder = { Text("Masukkan Judul Skripsi") },
         )
         Text(
             text = errorState.skripsi ?: "",
