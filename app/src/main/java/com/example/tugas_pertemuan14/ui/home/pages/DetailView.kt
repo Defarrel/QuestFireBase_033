@@ -136,6 +136,12 @@ fun ItemDetailMhs(
             ComponentDetailMhs(judul = "Kelas", isinya = mahasiswa.kelas)
             Spacer(modifier = Modifier.padding(4.dp))
             ComponentDetailMhs(judul = "Angkatan", isinya = mahasiswa.angkatan)
+            Spacer(modifier = Modifier.padding(4.dp))
+            ComponentDetailMhs(judul = "Judul Skripsi", isinya = mahasiswa.skripsi)
+            Spacer(modifier = Modifier.padding(4.dp))
+            ComponentDetailMhs(judul = "Dosen Pembimbing 1", isinya = mahasiswa.dosenbimbing1)
+            Spacer(modifier = Modifier.padding(4.dp))
+            ComponentDetailMhs(judul = "Dosen Pembimbing 2", isinya = mahasiswa.dosenbimbing2)
         }
     }
 }
