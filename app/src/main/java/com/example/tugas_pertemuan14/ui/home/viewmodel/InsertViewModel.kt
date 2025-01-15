@@ -31,7 +31,10 @@ class InsertViewModel(
             jenisKelamin = if(event.jenisKelamin.isNotEmpty()) null else "Jenis Kelamin tidak boleh kosong",
             alamat = if(event.alamat.isNotEmpty()) null else "Alamat tidak boleh kosong",
             kelas = if(event.kelas.isNotEmpty()) null else "Kelas tidak boleh kosong",
-            angkatan = if(event.angkatan.isNotEmpty()) null else "Angkatan tidak boleh kosong"
+            angkatan = if(event.angkatan.isNotEmpty()) null else "Angkatan tidak boleh kosong",
+            skripsi = if(event.skripsi.isNotEmpty()) null else "Judul Skripsi tidak boleh kosong",
+            dosenbimbing1 = if(event.dosenbimbing1.isNotEmpty()) null else "Dosen Pembimbing 1 tidak boleh kosong",
+            dosenbimbing2 = if(event.dosenbimbing2.isNotEmpty()) null else "Dosen Pembimbing 2 tidak boleh kosong"
         )
         uiEvent = uiEvent.copy(isEntryValid = errorState)
         return errorState.isValid()
