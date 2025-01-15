@@ -273,5 +273,60 @@ fun FormMahasiswa(
             text = errorState.angkatan ?: "",
             color = Color.Red
         )
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.skripsi,
+            onValueChange = { onValueChange(mahasiswaEvent.copy(skripsi = it)) },
+            label = { Text("Judul Skripsi") },
+            singleLine = true,
+            isError = errorState.skripsi != null,
+            placeholder = { Text("Masukkan Angkatan") },
+        )
+        Text(
+            text = errorState.skripsi ?: "",
+            color = Color.Red
+        )
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.skripsi,
+            onValueChange = { onValueChange(mahasiswaEvent.copy(skripsi = it)) },
+            label = { Text("Judul Skripsi") },
+            singleLine = true,
+            isError = errorState.skripsi != null,
+            placeholder = { Text("Masukkan Judul Skripsi") },
+        )
+        Text(
+            text = errorState.skripsi ?: "",
+            color = Color.Red
+        )
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.dosenbimbing1,
+            onValueChange = { onValueChange(mahasiswaEvent.copy(dosenbimbing1 = it)) },
+            label = { Text("Dosen Pembimbing 1") },
+            singleLine = true,
+            isError = errorState.dosenbimbing1 != null,
+            placeholder = { Text("Masukkan Dosen Pembimbing 1") },
+        )
+        Text(
+            text = errorState.dosenbimbing1 ?: "",
+            color = Color.Red
+        )
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.dosenbimbing2,
+            onValueChange = { onValueChange(mahasiswaEvent.copy(dosenbimbing2 = it)) },
+            label = { Text("Dosen Pembimbing 2") },
+            singleLine = true,
+            isError = errorState.dosenbimbing2 != null,
+            placeholder = { Text("Masukkan Dosen Pembimbing 2") },
+        )
+        Text(
+            text = errorState.dosenbimbing2 ?: "",
+            color = Color.Red
+        )
     }
 }
