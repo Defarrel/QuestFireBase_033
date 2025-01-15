@@ -226,6 +226,10 @@ fun MhsCard(
                 text = mahasiswa.alamat,
                 style = MaterialTheme.typography.titleLarge
             )
+            Text(
+                text = mahasiswa.skripsi,
+                style = MaterialTheme.typography.titleLarge
+            )
         }
     }
 }
